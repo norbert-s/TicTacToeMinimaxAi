@@ -72,16 +72,17 @@ public class Init {
     public void chooseSide() {
         boolean chosenOk = false;
         while (!chosenOk) {
-            System.out.println("Which sign do you choose, 'X' or 'O'?");
+            System.out.println("Which sign do you choose, 'X'  or 'O' (Kindly type the alphabet 'o' or 'O' zero is not accepted!) ?");
             player = scanner.next();
-            if (player.equals("X") || player.equals("O")) {
+            if (player.equalsIgnoreCase("X") || player.equalsIgnoreCase("O")) {
                 chosenOk = true;
+                player = player.toUpperCase();
                 computer = player.equals("X") ? "O" : "X";
             }
         }
         System.out.println("Player is " + player);
         beginner = player.equals("X") ? "player" : "Computer";
-        System.out.println("The first move is of " + beginner);
+        System.out.println( beginner+" starts");
         whoIsNext = beginner;
     }
 
@@ -118,7 +119,7 @@ public class Init {
             System.out.println("Computer is thinking");
 
             int moveToPush = calculateComputerMove(arr, computer, player);
-            System.out.println("Chosen move in takeFromPlayer " + moveToPush);
+            System.out.println("Chosen move of computer is" + moveToPush);
             pushComputerMoveToArray(moveToPush);
         }
     }
