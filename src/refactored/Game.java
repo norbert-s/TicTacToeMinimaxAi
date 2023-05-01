@@ -13,7 +13,7 @@ public class Game {
     public Game() {
         board = new Board();
         chooseSide();
-        board.draw();
+        board.drawBoard();
         play();
     }
 
@@ -22,16 +22,16 @@ public class Game {
     }
 
     private void chooseSide() {
-        boolean chosenOk = false;
-        while (!chosenOk) {
+        while (true) {
             System.out.println("Which sign do you choose, 'X' or 'O' (Kindly type the alphabet 'o' or 'O', zero is not accepted!)?");
             String playerSymbol = scanner.next();
             if (playerSymbol.equalsIgnoreCase("X") || playerSymbol.equalsIgnoreCase("O")) {
-                chosenOk = true;
+
                 playerSymbol = playerSymbol.toUpperCase();
                 String computerSymbol = playerSymbol.equals("X") ? "O" : "X";
                 humanPlayer = new HumanPlayer(playerSymbol);
                 computerPlayer = new ComputerPlayer(computerSymbol, playerSymbol);
+                break;
             }
         }
         System.out.println("Player is " + humanPlayer.getSymbol());
@@ -41,12 +41,12 @@ public class Game {
     }
 
     private void play() {
-        while (!board.checkEndState() && !isBoardFull()) {
+        while (!board.checkEndState() && !board.isBoardFull()) {
             if (currentPlayer.equals("player")) {
                 int move = humanPlayer.makeMove();
                 if (board.isSpotFree(move)) {
                     board.updateBoard(move, humanPlayer.getSymbol());
-                    board.draw();
+                    board.drawBoard();
                     currentPlayer = "Computer";
                 } else {
                     System.out.println("Choose another spot!");
@@ -56,7 +56,7 @@ public class Game {
                 if (board.isSpotFree(move)) {
                     System.out.println("Computer's move is " + move);
                     board.updateBoard(move, computerPlayer.getSymbol());
-                    board.draw();
+                    board.drawBoard();
                     currentPlayer = "player";
                 } else {
                     System.out.println("Computer chose an invalid move, please try again!");
@@ -74,7 +74,5 @@ public class Game {
         }
     }
 
-    private boolean isBoardFull() {
-        return board.getNumberOfFreeSpots() == 0;
-    }
+
 }

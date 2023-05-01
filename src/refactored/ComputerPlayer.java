@@ -10,7 +10,7 @@ public class ComputerPlayer {
     }
 
     public int makeMove(String[][] arr) {
-        return ai.calculateComputerMove(arr, symbol, ai.getOpponentSymbol());
+        return ai.calculateComputerMove(arr);
     }
 
     public String getSymbol() {

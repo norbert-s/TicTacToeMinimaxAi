@@ -3,9 +3,6 @@ package refactored;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.ArrayList;
-import java.util.List;
-
 class Board {
     private static final int DIMENSION_OF_ARRAY = 3;
     private static final int MAX_NUMBER_OF_SQUARES = 9;
@@ -39,7 +36,7 @@ class Board {
         }
     }
 
-    public void draw() {
+    public void drawBoard() {
         for (String[] row : arr) {
             System.out.print("|");
             for (String col : row) {
@@ -115,6 +112,9 @@ class Board {
     public int getNumberOfFreeSpots() {
         createListOfCurrentFreeSpots();
         return freeSpots.size();
+    }
+    public boolean isBoardFull() {
+        return getNumberOfFreeSpots() == 0;
     }
 }
 
