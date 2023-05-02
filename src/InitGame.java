@@ -1,6 +1,5 @@
-public class SetupGame {
-
-    public Game chooseSide(Game gameInstance) {
+public class InitGame {
+    public static Game chooseSide(Game gameInstance) {
         while (true) {
             System.out.println("Which sign do you choose, 'X' or 'O' ?");
             String playerSymbol = gameInstance.getScanner().next();
@@ -18,5 +17,14 @@ public class SetupGame {
         System.out.println(gameInstance.getBeginner() + " starts");
         gameInstance.setCurrentPlayer(gameInstance.getBeginner());
         return gameInstance;
+    }
+    public static Board fillTheBoard(Board board) {
+        int count = 1;
+        for (String[] row : board.getArr()) {
+            for (int colIdx = 0; colIdx < row.length; colIdx++) {
+                row[colIdx] = String.valueOf(count++);
+            }
+        }
+        return board;
     }
 }
