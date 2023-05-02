@@ -67,14 +67,15 @@ public class Game {
     }
 
     public Game() {
-
-    }
-    public void initialize(){
         setupGame = new SetupGame();
         setupGame.chooseSide(this);
-        this.board = new Board();
-        this.board.drawBoard();
-        this.play();
+        board = new Board();
+        board.drawBoard();
+        play();
+    }
+
+    public void initialize() {
+
     }
 
     private void play() {

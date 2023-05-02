@@ -8,9 +8,9 @@ class Board {
     private static final int WINNING_COLUMNS = 3;
 
     private int remaining = MAX_NUMBER_OF_SQUARES;
-    private String[][] arr = new String[DIMENSION_OF_ARRAY][DIMENSION_OF_ARRAY];
-    private List<Integer> freeSpots = new ArrayList<>();
-    private int[][] winningCombination = {
+    private final String[][] arr = new String[DIMENSION_OF_ARRAY][DIMENSION_OF_ARRAY];
+    private final List<Integer> freeSpots = new ArrayList<>();
+    private final int[][] winningCombination = {
             {1, 2, 3},
             {4, 5, 6},
             {7, 8, 9},
@@ -99,6 +99,7 @@ class Board {
             }
         }
     }
+
     public String[][] getBoardCopy() {
         String[][] copy = new String[DIMENSION_OF_ARRAY][DIMENSION_OF_ARRAY];
         for (int i = 0; i < DIMENSION_OF_ARRAY; i++) {
@@ -111,6 +112,7 @@ class Board {
         createListOfCurrentFreeSpots();
         return freeSpots.size();
     }
+
     public boolean isBoardFull() {
         return getNumberOfFreeSpots() == 0;
     }

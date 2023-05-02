@@ -2,10 +2,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class AI {
+public class AIBoard {
 
-    private String computerSymbol;
-    private String humanSymbol;
+    private final String computerSymbol;
+    private final String humanSymbol;
+
+    private int NUMBER_OF_ROWS = 3;
+
+    private int NUMBER_OF_COLUMNS = 3;
 
     private final int[][] winningCombinations = {
             {1, 2, 3},
@@ -18,19 +22,19 @@ public class AI {
             {3, 5, 7}
     };
 
-    private final Map<String, Integer> scores = new HashMap<>() {{
+    private final Map<String, Integer> SCORING_PLAYER_O_MOVES = new HashMap<>() {{
         put("X", -10);
         put("O", 10);
         put("tie", 0);
     }};
 
-    private final Map<String, Integer> scoresOfX = new HashMap<>() {{
+    private final Map<String, Integer> SCORING_PLAYER_X_MOVES = new HashMap<>() {{
         put("X", 10);
         put("O", -10);
         put("tie", 0);
     }};
 
-    public AI(String computerSymbol, String humanSymbol) {
+    public AIBoard(String computerSymbol, String humanSymbol) {
         this.computerSymbol = computerSymbol;
         this.humanSymbol = humanSymbol;
     }
@@ -39,8 +43,8 @@ public class AI {
         int bestScore = Integer.MIN_VALUE;
         int move = -1;
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < NUMBER_OF_ROWS; i++) {
+            for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
                 if (!board[i][j].equals("O") && !board[i][j].equals("X")) {
                     String temp = board[i][j];
                     board[i][j] = computerSymbol;
@@ -60,45 +64,45 @@ public class AI {
         String result = checkIfEndState(board);
 
         if (depth == 0 || !result.equals("false")) {
-            return computerSymbol.equals("O") ? scores.get(result) : scoresOfX.get(result);
+            return computerSymbol.equals("O") ? SCORING_PLAYER_O_MOVES.get(result) : SCORING_PLAYER_X_MOVES.get(result);
         }
 
         if (isMaximizing) {
-            int maxEval = Integer.MIN_VALUE;
+            int maxEvaluation = Integer.MIN_VALUE;
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     if (!board[i][j].equals("O") && !board[i][j].equals("X")) {
                         String temp = board[i][j];
                         board[i][j] = computerSymbol;
-                        int eval = minimax(board, depth - 1, alpha, beta, false);
+                        int evaluation = minimax(board, depth - 1, alpha, beta, false);
                         board[i][j] = temp;
-                        maxEval = Math.max(maxEval, eval);
-                        alpha = Math.max(alpha, eval);
+                        maxEvaluation = Math.max(maxEvaluation, evaluation);
+                        alpha = Math.max(alpha, evaluation);
                         if (beta <= alpha) {
-                            return maxEval;
+                            return maxEvaluation;
                         }
                     }
                 }
             }
-            return maxEval;
+            return maxEvaluation;
         } else {
-            int minEval = Integer.MAX_VALUE;
+            int minEvaluation = Integer.MAX_VALUE;
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
                     if (!board[i][j].equals("O") && !board[i][j].equals("X")) {
                         String temp = board[i][j];
                         board[i][j] = humanSymbol;
-                        int eval = minimax(board, depth - 1, alpha, beta, true);
+                        int evaluation = minimax(board, depth - 1, alpha, beta, true);
                         board[i][j] = temp;
-                        minEval = Math.min(minEval, eval);
-                        beta = Math.min(beta, eval);
+                        minEvaluation = Math.min(minEvaluation, evaluation);
+                        beta = Math.min(beta, evaluation);
                         if (beta <= alpha) {
-                            return minEval;
+                            return minEvaluation;
                         }
                     }
                 }
             }
-            return minEval;
+            return minEvaluation;
         }
     }
 
@@ -110,8 +114,8 @@ public class AI {
                 int counterO = 0;
                 int counterX = 0;
                 for (int j = 0; j < winningCombination.length; j++) {
-                    int elemFromWinningCombo = winningCombination[j] - 1;
-                    String found = board[elemFromWinningCombo / 3][elemFromWinningCombo % 3];
+                    int elemFromWinningCombination = winningCombination[j] - 1;
+                    String found = board[elemFromWinningCombination / 3][elemFromWinningCombination % 3];
                     if (found.equals("O")) {
                         counterO++;
                     }

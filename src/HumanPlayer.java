@@ -2,11 +2,11 @@ import java.util.Scanner;
 
 
 public class HumanPlayer {
-    private String symbol;
-    private Scanner scanner = new Scanner(System.in);
+    private final String symbol;
+    private final Scanner scanner = new Scanner(System.in);
 
     public HumanPlayer(String symbol) {
-        this.symbol=symbol;
+        this.symbol = symbol;
     }
 
 
