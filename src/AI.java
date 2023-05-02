@@ -24,7 +24,7 @@ public class AI {
         put("tie", 0);
     }};
 
-    private final Map<String, Integer> scoresX = new HashMap<>() {{
+    private final Map<String, Integer> scoresOfX = new HashMap<>() {{
         put("X", 10);
         put("O", -10);
         put("tie", 0);
@@ -60,7 +60,7 @@ public class AI {
         String result = checkIfEndState(board);
 
         if (depth == 0 || !result.equals("false")) {
-            return computerSymbol.equals("O") ? scores.get(result) : scoresX.get(result);
+            return computerSymbol.equals("O") ? scores.get(result) : scoresOfX.get(result);
         }
 
         if (isMaximizing) {

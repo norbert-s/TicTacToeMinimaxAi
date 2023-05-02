@@ -8,34 +8,73 @@ public class Game {
     private String beginner;
     private Scanner scanner = new Scanner(System.in);
 
+    private Setup setup;
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public HumanPlayer getHumanPlayer() {
+        return humanPlayer;
+    }
+
+    public void setHumanPlayer(HumanPlayer humanPlayer) {
+        this.humanPlayer = humanPlayer;
+    }
+
+    public ComputerPlayer getComputerPlayer() {
+        return computerPlayer;
+    }
+
+    public void setComputerPlayer(ComputerPlayer computerPlayer) {
+        this.computerPlayer = computerPlayer;
+    }
+
+    public String getCurrentPlayer() {
+        return currentPlayer;
+    }
+
+    public void setCurrentPlayer(String currentPlayer) {
+        this.currentPlayer = currentPlayer;
+    }
+
+    public String getBeginner() {
+        return beginner;
+    }
+
+    public void setBeginner(String beginner) {
+        this.beginner = beginner;
+    }
+
+    public Scanner getScanner() {
+        return scanner;
+    }
+
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
+    }
+
+    public Setup getSetup() {
+        return setup;
+    }
+
+    public void setSetup(Setup setup) {
+        this.setup = setup;
+    }
+
     public Game() {
-        board = new Board();
-        chooseSide();
-        board.drawBoard();
-        play();
+
     }
-
-    public static void main(String[] args) {
-        new Game();
-    }
-
-    private void chooseSide() {
-        while (true) {
-            System.out.println("Which sign do you choose, 'X' or 'O' ?");
-            String playerSymbol = scanner.next();
-            if (playerSymbol.equalsIgnoreCase("X") || playerSymbol.equalsIgnoreCase("O")) {
-
-                playerSymbol = playerSymbol.toUpperCase();
-                String computerSymbol = playerSymbol.equals("X") ? "O" : "X";
-                humanPlayer = new HumanPlayer(playerSymbol);
-                computerPlayer = new ComputerPlayer(computerSymbol, playerSymbol);
-                break;
-            }
-        }
-        System.out.println("Player is " + humanPlayer.getSymbol());
-        beginner = humanPlayer.getSymbol().equals("X") ? "player" : "Computer";
-        System.out.println(beginner + " starts");
-        currentPlayer = beginner;
+    public void initialize(){
+        setup = new Setup();
+        setup.chooseSide(this);
+        this.board = new Board();
+        this.board.drawBoard();
+        this.play();
     }
 
     private void play() {
