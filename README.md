@@ -1,13 +1,17 @@
 # TicTacToeMinimaxAi
 
-One of my earlier projects in Java
+A project implementing the minimax AI algorithm in Java for Tic-Tac-Toe game. 
 
-Minimax ai in java with alpha beta pruning
+The Minimax algorithm is a recursive decision-making strategy used in two-player games, where one player aims to maximize their score while the other tries to minimize it.
 
-Its a simple implementation - in terms of the layout - of the game of tic tac toe
+The game features a simple console layout for displaying the tic tac toe board. 
 
-However the Computer moves are played optimally with pruning implementing minimax algorithm
+The computer player uses an advanced version of the minimax algorithm, optimized with alpha-beta pruning, to make optimal moves.
+
+This optimization reduces the search space by avoiding unnecessary exploration of branches, and by that improving the efficiency and depth of the search.
 
 -------------------------------------------------------------------
 
-Refactored it to be more in line with SOLID - and created separate classes for separate concerns
+Improvements:
+
+Refactored the code to be more in line with SOLID design principles .
