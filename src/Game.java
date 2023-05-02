@@ -10,14 +10,6 @@ public class Game {
 
     private SetupGame setupGame;
 
-    public Board getBoard() {
-        return board;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
     public HumanPlayer getHumanPlayer() {
         return humanPlayer;
     }
@@ -26,17 +18,10 @@ public class Game {
         this.humanPlayer = humanPlayer;
     }
 
-    public ComputerPlayer getComputerPlayer() {
-        return computerPlayer;
-    }
-
     public void setComputerPlayer(ComputerPlayer computerPlayer) {
         this.computerPlayer = computerPlayer;
     }
 
-    public String getCurrentPlayer() {
-        return currentPlayer;
-    }
 
     public void setCurrentPlayer(String currentPlayer) {
         this.currentPlayer = currentPlayer;
@@ -54,28 +39,12 @@ public class Game {
         return scanner;
     }
 
-    public void setScanner(Scanner scanner) {
-        this.scanner = scanner;
-    }
-
-    public SetupGame getSetup() {
-        return setupGame;
-    }
-
-    public void setSetup(SetupGame setupGame) {
-        this.setupGame = setupGame;
-    }
-
     public Game() {
         setupGame = new SetupGame();
         setupGame.chooseSide(this);
         board = new Board();
         board.drawBoard();
         play();
-    }
-
-    public void initialize() {
-
     }
 
     private void play() {
@@ -112,6 +81,4 @@ public class Game {
             System.out.println("It's a draw!");
         }
     }
-
-
 }
