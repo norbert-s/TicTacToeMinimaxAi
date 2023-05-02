@@ -6,8 +6,9 @@ public class HumanPlayer {
     private Scanner scanner = new Scanner(System.in);
 
     public HumanPlayer(String symbol) {
-        this.symbol = symbol;
+        this.symbol=symbol;
     }
+
 
     public int makeMove() {
         System.out.println("What's your next move?");

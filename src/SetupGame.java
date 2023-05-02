@@ -1,4 +1,4 @@
-public class Setup {
+public class SetupGame {
 
     public Game chooseSide(Game gameInstance) {
         while (true) {

@@ -8,7 +8,7 @@ public class Game {
     private String beginner;
     private Scanner scanner = new Scanner(System.in);
 
-    private Setup setup;
+    private SetupGame setupGame;
 
     public Board getBoard() {
         return board;
@@ -58,20 +58,20 @@ public class Game {
         this.scanner = scanner;
     }
 
-    public Setup getSetup() {
-        return setup;
+    public SetupGame getSetup() {
+        return setupGame;
     }
 
-    public void setSetup(Setup setup) {
-        this.setup = setup;
+    public void setSetup(SetupGame setupGame) {
+        this.setupGame = setupGame;
     }
 
     public Game() {
 
     }
     public void initialize(){
-        setup = new Setup();
-        setup.chooseSide(this);
+        setupGame = new SetupGame();
+        setupGame.chooseSide(this);
         this.board = new Board();
         this.board.drawBoard();
         this.play();
