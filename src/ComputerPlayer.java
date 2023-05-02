@@ -1,5 +1,3 @@
-package refactored;
-
 public class ComputerPlayer {
     private String symbol;
     private AI ai;

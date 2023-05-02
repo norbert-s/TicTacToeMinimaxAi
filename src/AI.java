@@ -4,8 +4,8 @@ import java.util.Map;
 
 public class AI {
 
-    private String computerHere;
-    private String humanHere;
+    private String computerSymbol;
+    private String humanSymbol;
 
     private final int[][] winningCombinations = {
             {1, 2, 3},
@@ -18,39 +18,37 @@ public class AI {
             {3, 5, 7}
     };
 
-    private Map<String, Integer> scores = new HashMap<>() {{
+    private final Map<String, Integer> scores = new HashMap<>() {{
         put("X", -10);
         put("O", 10);
         put("tie", 0);
     }};
 
-    private Map<String, Integer> scoresX = new HashMap<>() {{
+    private final Map<String, Integer> scoresX = new HashMap<>() {{
         put("X", 10);
         put("O", -10);
         put("tie", 0);
     }};
 
-    public AI(String computerSign, String humanSign) {
-        computerHere = computerSign;
-        humanHere = humanSign;
+    public AI(String computerSymbol, String humanSymbol) {
+        this.computerSymbol = computerSymbol;
+        this.humanSymbol = humanSymbol;
     }
 
-    public String bestMove(String[][] arrCopy) {
-        int bestScore = -100;
-        String move = "";
-        int alpha = -1000;
-        int beta = 1000;
+    public int calculateComputerMove(String[][] board) {
+        int bestScore = Integer.MIN_VALUE;
+        int move = -1;
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (!arrCopy[i][j].equals("O") && !arrCopy[i][j].equals("X")) {
-                    String temp = arrCopy[i][j];
-                    arrCopy[i][j] = computerHere;
-                    int score = minimax(arrCopy, 9, alpha, beta, false);
-                    arrCopy[i][j] = temp;
+                if (!board[i][j].equals("O") && !board[i][j].equals("X")) {
+                    String temp = board[i][j];
+                    board[i][j] = computerSymbol;
+                    int score = minimax(board, 9, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
+                    board[i][j] = temp;
                     if (score > bestScore) {
                         bestScore = score;
-                        move = temp;
+                        move = Integer.parseInt(temp);
                     }
                 }
             }
@@ -58,71 +56,62 @@ public class AI {
         return move;
     }
 
-    public int calculateComputerMove(String[][] arr, String computerSign, String humanSign) {
-        System.out.println("Computer sign: " + computerSign + " Human sign: " + humanSign);
-        String thisIsTheMove = bestMove(arr);
-        System.out.println("This is the move: " + thisIsTheMove);
-        int thisIsTheChosenMove = Integer.parseInt(thisIsTheMove);
-        return thisIsTheChosenMove;
-    }
-
-    public int minimax(String[][] arrCopy, int depth, int alpha, int beta, boolean isMaximizing) {
-        String result = checkIfEndState(arrCopy);
+    private int minimax(String[][] board, int depth, int alpha, int beta, boolean isMaximizing) {
+        String result = checkIfEndState(board);
 
         if (depth == 0 || !result.equals("false")) {
-            if (computerHere.equals("O")) {
-                return scores.get(result);
-            } else {
-                return scoresX.get(result);
-            }
+            return computerSymbol.equals("O") ? scores.get(result) : scoresX.get(result);
         }
 
         if (isMaximizing) {
+            int maxEval = Integer.MIN_VALUE;
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    if (!arrCopy[i][j].equals("O") && !arrCopy[i][j].equals("X")) {
-                        String temp = arrCopy[i][j];
-                        arrCopy[i][j] = computerHere;
-                        alpha = Math.max(alpha, minimax(arrCopy, depth - 1, alpha, beta, false));
-                        arrCopy[i][j] = temp;
-
+                    if (!board[i][j].equals("O") && !board[i][j].equals("X")) {
+                        String temp = board[i][j];
+                        board[i][j] = computerSymbol;
+                        int eval = minimax(board, depth - 1, alpha, beta, false);
+                        board[i][j] = temp;
+                        maxEval = Math.max(maxEval, eval);
+                        alpha = Math.max(alpha, eval);
                         if (beta <= alpha) {
-                            break;
+                            return maxEval;
                         }
                     }
                 }
             }
-            return alpha;
+            return maxEval;
         } else {
+            int minEval = Integer.MAX_VALUE;
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    if (!arrCopy[i][j].equals("O") && !arrCopy[i][j].equals("X")) {
-                        String temp = arrCopy[i][j];
-                        arrCopy[i][j] = humanHere;
-                        beta = Math.min(beta, minimax(arrCopy, depth - 1, alpha, beta, true));
-                        arrCopy[i][j] = temp;
-
+                    if (!board[i][j].equals("O") && !board[i][j].equals("X")) {
+                        String temp = board[i][j];
+                        board[i][j] = humanSymbol;
+                        int eval = minimax(board, depth - 1, alpha, beta, true);
+                        board[i][j] = temp;
+                        minEval = Math.min(minEval, eval);
+                        beta = Math.min(beta, eval);
                         if (beta <= alpha) {
-                            break;
+                            return minEval;
                         }
                     }
                 }
             }
-            return beta;
+            return minEval;
         }
     }
 
-    public String checkIfEndState(String[][] arrCopy) {
-        int remaining = countFreeSpots(arrCopy);
+    private String checkIfEndState(String[][] board) {
+        int remaining = countFreeSpots(board);
 
         if (remaining >= 0 && remaining <= 5) {
             for (int[] winningCombination : winningCombinations) {
                 int counterO = 0;
                 int counterX = 0;
                 for (int j = 0; j < winningCombination.length; j++) {
-                    int elemFromWinningCombo = winningCombination[j];
-                    elemFromWinningCombo -= 1;
-                    String found = arrCopy[elemFromWinningCombo / 3][elemFromWinningCombo % 3];
+                    int elemFromWinningCombo = winningCombination[j] - 1;
+                    String found = board[elemFromWinningCombo / 3][elemFromWinningCombo % 3];
                     if (found.equals("O")) {
                         counterO++;
                     }
@@ -144,11 +133,11 @@ public class AI {
         }
     }
 
-    public int countFreeSpots(String[][] arrCopy) {
+    private int countFreeSpots(String[][] board) {
         int countFreeSpots = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (!arrCopy[i][j].equals("X") && !arrCopy[i][j].equals("O")) {
+                if (!board[i][j].equals("X") && !board[i][j].equals("O")) {
                     countFreeSpots++;
                 }
             }

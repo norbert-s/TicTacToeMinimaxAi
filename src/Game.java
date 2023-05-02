@@ -1,5 +1,3 @@
-package refactored;
-
 import java.util.Scanner;
 
 public class Game {
@@ -23,7 +21,7 @@ public class Game {
 
     private void chooseSide() {
         while (true) {
-            System.out.println("Which sign do you choose, 'X' or 'O' (Kindly type the alphabet 'o' or 'O', zero is not accepted!)?");
+            System.out.println("Which sign do you choose, 'X' or 'O' ?");
             String playerSymbol = scanner.next();
             if (playerSymbol.equalsIgnoreCase("X") || playerSymbol.equalsIgnoreCase("O")) {
 
@@ -59,7 +57,8 @@ public class Game {
                     board.drawBoard();
                     currentPlayer = "player";
                 } else {
-                    System.out.println("Computer chose an invalid move, please try again!");
+                    //for debugging purpose
+                    throw new RuntimeException("Illegal computer move");
                 }
             }
         }
