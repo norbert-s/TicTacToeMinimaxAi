@@ -9,7 +9,25 @@ class Board {
 
     private int remaining = MAX_NUMBER_OF_SQUARES;
     private final String[][] arr = new String[DIMENSION_OF_ARRAY][DIMENSION_OF_ARRAY];
-    private final List<Integer> freeSpots = new ArrayList<>();
+
+
+
+    public String[][] getArr(){
+        return arr;
+    }
+    final List<Integer> freeSpots = new ArrayList<>();
+
+    List<Integer> getFreeSpots(){
+        return freeSpots;
+    }
+
+    void clearFreeSpotsList(){
+        freeSpots.clear();
+    }
+
+    int getFreeSpotsSize(){
+        return freeSpots.size();
+    }
     private final int[][] winningCombination = {
             {1, 2, 3},
             {4, 5, 6},
@@ -20,38 +38,10 @@ class Board {
             {1, 5, 9},
             {3, 5, 7}
     };
+    BoardFreeSpots boardFreeSpots;
 
     public Board() {
-        fillStringArrWithNumbers();
-    }
-
-    public void fillStringArrWithNumbers() {
-        int count = 1;
-        for (String[] row : arr) {
-            for (int colIdx = 0; colIdx < row.length; colIdx++) {
-                row[colIdx] = String.valueOf(count++);
-            }
-        }
-    }
-
-    public void drawBoard() {
-        for (String[] row : arr) {
-            System.out.print("|");
-            for (String col : row) {
-                System.out.print(col + "|");
-            }
-            System.out.println();
-        }
-    }
-
-    public boolean isSpotFree(int spot) {
-        createListOfCurrentFreeSpots();
-        for (int i : freeSpots) {
-            if (i == spot) {
-                return true;
-            }
-        }
-        return false;
+        boardFreeSpots = new BoardFreeSpots();
     }
 
     public void updateBoard(int move, String symbol) {
@@ -89,17 +79,6 @@ class Board {
         return false;
     }
 
-    private void createListOfCurrentFreeSpots() {
-        freeSpots.clear();
-        for (String[] row : arr) {
-            for (String col : row) {
-                if (!col.equals("X") && !col.equals("O")) {
-                    freeSpots.add(Integer.parseInt(col));
-                }
-            }
-        }
-    }
-
     public String[][] getBoardCopy() {
         String[][] copy = new String[DIMENSION_OF_ARRAY][DIMENSION_OF_ARRAY];
         for (int i = 0; i < DIMENSION_OF_ARRAY; i++) {
@@ -108,13 +87,8 @@ class Board {
         return copy;
     }
 
-    public int getNumberOfFreeSpots() {
-        createListOfCurrentFreeSpots();
-        return freeSpots.size();
-    }
-
     public boolean isBoardFull() {
-        return getNumberOfFreeSpots() == 0;
+        return boardFreeSpots.getNumberOfFreeSpots(this) == 0;
     }
 }
 

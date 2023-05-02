@@ -8,7 +8,7 @@ public class Game {
     private String beginner;
     private Scanner scanner = new Scanner(System.in);
 
-    private SetupGame setupGame;
+    BoardFreeSpots boardFreeSpots;
 
     public HumanPlayer getHumanPlayer() {
         return humanPlayer;
@@ -40,10 +40,11 @@ public class Game {
     }
 
     public Game() {
-        setupGame = new SetupGame();
-        setupGame.chooseSide(this);
         board = new Board();
-        board.drawBoard();
+        boardFreeSpots = new BoardFreeSpots();
+        InitGame.chooseSide(this);
+        InitGame.fillTheBoard(board);
+        BoardDrawer.draw(board.getArr());
         play();
     }
 
@@ -51,19 +52,19 @@ public class Game {
         while (!board.checkEndState() && !board.isBoardFull()) {
             if (currentPlayer.equals("player")) {
                 int move = humanPlayer.makeMove();
-                if (board.isSpotFree(move)) {
+                if (boardFreeSpots.isSpotFree(board,move)) {
                     board.updateBoard(move, humanPlayer.getSymbol());
-                    board.drawBoard();
+                    BoardDrawer.draw(board.getArr());
                     currentPlayer = "Computer";
                 } else {
                     System.out.println("Choose another spot!");
                 }
             } else {
                 int move = computerPlayer.makeMove(board.getBoardCopy());
-                if (board.isSpotFree(move)) {
+                if (boardFreeSpots.isSpotFree(board,move)) {
                     System.out.println("Computer's move is " + move);
                     board.updateBoard(move, computerPlayer.getSymbol());
-                    board.drawBoard();
+                    BoardDrawer.draw(board.getArr());
                     currentPlayer = "player";
                 } else {
                     //for debugging purpose
