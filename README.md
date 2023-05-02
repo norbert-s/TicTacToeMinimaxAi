@@ -10,4 +10,4 @@ However the Computer moves are played optimally with pruning implementing minima
 
 -------------------------------------------------------------------
 
-Going to refactor this and create separate classes for separate concerns
+Refactored it to be more in line with SOLID - and created separate classes for separate concerns
