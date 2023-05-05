@@ -1,8 +1,13 @@
+package ai;
+
+import board.BoardBase;
+import board.BoardFreeSpots;
+
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class AIBoard extends BoardBase{
+public class AIBoard extends BoardBase {
 
     private final char computerSymbol;
     private final char humanSymbol;

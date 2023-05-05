@@ -1,7 +1,9 @@
+package board;
+
 import java.util.ArrayList;
 import java.util.List;
 
-class Board extends BoardBase{
+public class Board extends BoardBase {
     private static final int DIMENSION_OF_ARRAY = 3;
     private static final int MAX_NUMBER_OF_SQUARES = 9;
     private static final int WINNING_ROWS = 8;

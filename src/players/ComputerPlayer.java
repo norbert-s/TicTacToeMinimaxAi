@@ -1,3 +1,7 @@
+package players;
+
+import ai.AIBoard;
+
 public class ComputerPlayer {
     private final char symbol;
     private final AIBoard ai;

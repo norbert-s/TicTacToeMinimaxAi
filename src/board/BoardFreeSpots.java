@@ -1,3 +1,7 @@
+package board;
+
+import board.Board;
+
 public class BoardFreeSpots {
     private Board createListOfCurrentFreeSpots(Board board) {
         board.clearFreeSpotsList();

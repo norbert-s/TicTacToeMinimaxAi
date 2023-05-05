@@ -1,3 +1,5 @@
+package board;
+
 public abstract class BoardBase {
     protected final int[][] winningCombinations = {
             {1, 2, 3},

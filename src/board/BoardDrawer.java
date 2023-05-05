@@ -1,3 +1,5 @@
+package board;
+
 public class BoardDrawer {
     public static void draw(char[][] arr) {
         for (char[] row : arr) {
