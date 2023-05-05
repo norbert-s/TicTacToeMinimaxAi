@@ -4,8 +4,8 @@ import java.util.Map;
 
 public class AIBoard {
 
-    private final String computerSymbol;
-    private final String humanSymbol;
+    private final char computerSymbol;
+    private final char humanSymbol;
 
     private int NUMBER_OF_ROWS = 3;
 
@@ -34,25 +34,25 @@ public class AIBoard {
         put("tie", 0);
     }};
 
-    public AIBoard(String computerSymbol, String humanSymbol) {
+    public AIBoard(char computerSymbol, char humanSymbol) {
         this.computerSymbol = computerSymbol;
         this.humanSymbol = humanSymbol;
     }
 
-    public int calculateComputerMove(String[][] board) {
+    public int calculateComputerMove(char[][] board) {
         int bestScore = Integer.MIN_VALUE;
         int move = -1;
 
         for (int i = 0; i < NUMBER_OF_ROWS; i++) {
             for (int j = 0; j < NUMBER_OF_COLUMNS; j++) {
-                if (!board[i][j].equals("O") && !board[i][j].equals("X")) {
-                    String temp = board[i][j];
+                if (board[i][j] != 'O' && board[i][j] != 'X') {
+                    char temp = board[i][j];
                     board[i][j] = computerSymbol;
                     int score = minimax(board, 9, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
                     board[i][j] = temp;
                     if (score > bestScore) {
                         bestScore = score;
-                        move = Integer.parseInt(temp);
+                        move = Character.getNumericValue(temp);
                     }
                 }
             }
@@ -60,19 +60,19 @@ public class AIBoard {
         return move;
     }
 
-    private int minimax(String[][] board, int depth, int alpha, int beta, boolean isMaximizing) {
+    private int minimax(char[][] board, int depth, int alpha, int beta, boolean isMaximizing) {
         String result = checkIfEndState(board);
 
         if (depth == 0 || !result.equals("false")) {
-            return computerSymbol.equals("O") ? SCORING_PLAYER_O_MOVES.get(result) : SCORING_PLAYER_X_MOVES.get(result);
+            return computerSymbol == 'O' ? SCORING_PLAYER_O_MOVES.get(result) : SCORING_PLAYER_X_MOVES.get(result);
         }
 
         if (isMaximizing) {
             int maxEvaluation = Integer.MIN_VALUE;
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    if (!board[i][j].equals("O") && !board[i][j].equals("X")) {
-                        String temp = board[i][j];
+                    if (board[i][j] != 'O' && board[i][j] != 'X') {
+                        char temp = board[i][j];
                         board[i][j] = computerSymbol;
                         int evaluation = minimax(board, depth - 1, alpha, beta, false);
                         board[i][j] = temp;
@@ -89,8 +89,8 @@ public class AIBoard {
             int minEvaluation = Integer.MAX_VALUE;
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-                    if (!board[i][j].equals("O") && !board[i][j].equals("X")) {
-                        String temp = board[i][j];
+                    if (board[i][j] != 'O' && board[i][j] != 'X') {
+                        char temp = board[i][j];
                         board[i][j] = humanSymbol;
                         int evaluation = minimax(board, depth - 1, alpha, beta, true);
                         board[i][j] = temp;
@@ -106,7 +106,7 @@ public class AIBoard {
         }
     }
 
-    private String checkIfEndState(String[][] board) {
+    private String checkIfEndState(char[][] board) {
         int remaining = countFreeSpots(board);
 
         if (remaining >= 0 && remaining <= 5) {
@@ -115,11 +115,11 @@ public class AIBoard {
                 int counterX = 0;
                 for (int j = 0; j < winningCombination.length; j++) {
                     int elemFromWinningCombination = winningCombination[j] - 1;
-                    String found = board[elemFromWinningCombination / 3][elemFromWinningCombination % 3];
-                    if (found.equals("O")) {
+                    char found = board[elemFromWinningCombination / 3][elemFromWinningCombination % 3];
+                    if (found == 'O') {
                         counterO++;
                     }
-                    if (found.equals("X")) {
+                    if (found == 'X') {
                         counterX++;
                     }
                 }
@@ -137,11 +137,11 @@ public class AIBoard {
         }
     }
 
-    private int countFreeSpots(String[][] board) {
+    private int countFreeSpots(char[][] board) {
         int countFreeSpots = 0;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                if (!board[i][j].equals("X") && !board[i][j].equals("O")) {
+                if (board[i][j] != 'X' && board[i][j] != 'O') {
                     countFreeSpots++;
                 }
             }

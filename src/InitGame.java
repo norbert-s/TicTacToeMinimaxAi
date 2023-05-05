@@ -7,22 +7,23 @@ public class InitGame {
 
                 playerSymbol = playerSymbol.toUpperCase();
                 String computerSymbol = playerSymbol.equals("X") ? "O" : "X";
-                gameInstance.setHumanPlayer(new HumanPlayer(playerSymbol));
-                gameInstance.setComputerPlayer(new ComputerPlayer(computerSymbol, playerSymbol));
+                gameInstance.setHumanPlayer(new HumanPlayer(playerSymbol.charAt(0)));
+                gameInstance.setComputerPlayer(new ComputerPlayer(computerSymbol.charAt(0), playerSymbol.charAt(0)));
                 break;
             }
         }
         System.out.println("Player is " + gameInstance.getHumanPlayer().getSymbol());
-        gameInstance.setBeginner(gameInstance.getHumanPlayer().getSymbol().equals("X") ? "player" : "Computer");
+        gameInstance.setBeginner(gameInstance.getHumanPlayer().getSymbol() == 'X' ? "player" : "Computer");
         System.out.println(gameInstance.getBeginner() + " starts");
         gameInstance.setCurrentPlayer(gameInstance.getBeginner());
         return gameInstance;
     }
+
     public static Board fillTheBoard(Board board) {
         int count = 1;
-        for (String[] row : board.getArr()) {
+        for (char[] row : board.getArr()) {
             for (int colIdx = 0; colIdx < row.length; colIdx++) {
-                row[colIdx] = String.valueOf(count++);
+                row[colIdx] = Character.forDigit(count++, 10);
             }
         }
         return board;

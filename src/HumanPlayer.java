@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 
 public class HumanPlayer {
-    private final String symbol;
+    private final char symbol;
     private final Scanner scanner = new Scanner(System.in);
 
-    public HumanPlayer(String symbol) {
+    public HumanPlayer(char symbol) {
         this.symbol = symbol;
     }
 
@@ -15,7 +15,7 @@ public class HumanPlayer {
         return scanner.nextInt();
     }
 
-    public String getSymbol() {
+    public char getSymbol() {
         return symbol;
     }
 }
