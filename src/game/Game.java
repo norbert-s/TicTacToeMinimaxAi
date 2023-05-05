@@ -1,3 +1,12 @@
+package game;
+
+import board.Board;
+import board.BoardDrawer;
+import board.BoardFreeSpots;
+import init.InitGame;
+import players.ComputerPlayer;
+import players.HumanPlayer;
+
 import java.util.Scanner;
 
 public class Game {

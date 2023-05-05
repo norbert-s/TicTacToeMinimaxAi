@@ -1,8 +1,13 @@
+package ai;
+
+import board.BoardBase;
+import board.BoardFreeSpots;
+
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class AIBoard {
+public class AIBoard extends BoardBase {
 
     private final char computerSymbol;
     private final char humanSymbol;
@@ -10,17 +15,6 @@ public class AIBoard {
     private int NUMBER_OF_ROWS = 3;
 
     private int NUMBER_OF_COLUMNS = 3;
-
-    private final int[][] winningCombinations = {
-            {1, 2, 3},
-            {4, 5, 6},
-            {7, 8, 9},
-            {1, 4, 7},
-            {2, 5, 8},
-            {3, 6, 9},
-            {1, 5, 9},
-            {3, 5, 7}
-    };
 
     private final Map<String, Integer> SCORING_PLAYER_O_MOVES = new HashMap<>() {{
         put("X", -10);
@@ -37,6 +31,7 @@ public class AIBoard {
     public AIBoard(char computerSymbol, char humanSymbol) {
         this.computerSymbol = computerSymbol;
         this.humanSymbol = humanSymbol;
+        boardFreeSpots = new BoardFreeSpots();
     }
 
     public int calculateComputerMove(char[][] board) {
@@ -61,7 +56,7 @@ public class AIBoard {
     }
 
     private int minimax(char[][] board, int depth, int alpha, int beta, boolean isMaximizing) {
-        String result = checkIfEndState(board);
+        String result = checkEndState(board);
 
         if (depth == 0 || !result.equals("false")) {
             return computerSymbol == 'O' ? SCORING_PLAYER_O_MOVES.get(result) : SCORING_PLAYER_X_MOVES.get(result);
@@ -106,8 +101,10 @@ public class AIBoard {
         }
     }
 
-    private String checkIfEndState(char[][] board) {
-        int remaining = countFreeSpots(board);
+    //specific to this class also specific in that the board changes inside of minimax calls
+    //so that it needs to be called by passing over the char[][] board
+    protected String checkEndState(char[][] board) {
+        int remaining = boardFreeSpots.getNumberOfFreeSpots(board);
 
         if (remaining >= 0 && remaining <= 5) {
             for (int[] winningCombination : winningCombinations) {
@@ -135,18 +132,6 @@ public class AIBoard {
         } else {
             return "tie";
         }
-    }
-
-    private int countFreeSpots(char[][] board) {
-        int countFreeSpots = 0;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (board[i][j] != 'X' && board[i][j] != 'O') {
-                    countFreeSpots++;
-                }
-            }
-        }
-        return countFreeSpots;
     }
 }
 

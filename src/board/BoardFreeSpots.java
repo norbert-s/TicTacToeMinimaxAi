@@ -1,9 +1,8 @@
+package board;
+
+import board.Board;
+
 public class BoardFreeSpots {
-
-    public int getNumberOfFreeSpots(Board board) {
-        return createListOfCurrentFreeSpots(board).getFreeSpotsSize();
-    }
-
     private Board createListOfCurrentFreeSpots(Board board) {
         board.clearFreeSpotsList();
         for (char[] row : board.getArr()) {
@@ -16,6 +15,7 @@ public class BoardFreeSpots {
         return board;
     }
 
+    //checking if the number provided by user maps to a free spot or not
     public boolean isSpotFree(Board board, int spot) {
         for (int i : createListOfCurrentFreeSpots(board).getFreeSpots()) {
             if (i == spot) {
@@ -23,5 +23,18 @@ public class BoardFreeSpots {
             }
         }
         return false;
+    }
+
+    //ai uses it
+    public int getNumberOfFreeSpots(char[][] board) {
+        int countFreeSpots = 0;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (board[i][j] != 'X' && board[i][j] != 'O') {
+                    countFreeSpots++;
+                }
+            }
+        }
+        return countFreeSpots;
     }
 }
