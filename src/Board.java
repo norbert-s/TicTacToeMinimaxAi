@@ -8,26 +8,26 @@ class Board {
     private static final int WINNING_COLUMNS = 3;
 
     private int remaining = MAX_NUMBER_OF_SQUARES;
-    private final String[][] arr = new String[DIMENSION_OF_ARRAY][DIMENSION_OF_ARRAY];
+    private final char[][] arr = new char[DIMENSION_OF_ARRAY][DIMENSION_OF_ARRAY];
 
-
-
-    public String[][] getArr(){
+    public char[][] getArr() {
         return arr;
     }
+
     final List<Integer> freeSpots = new ArrayList<>();
 
-    List<Integer> getFreeSpots(){
+    List<Integer> getFreeSpots() {
         return freeSpots;
     }
 
-    void clearFreeSpotsList(){
+    void clearFreeSpotsList() {
         freeSpots.clear();
     }
 
-    int getFreeSpotsSize(){
+    int getFreeSpotsSize() {
         return freeSpots.size();
     }
+
     private final int[][] winningCombination = {
             {1, 2, 3},
             {4, 5, 6},
@@ -44,10 +44,10 @@ class Board {
         boardFreeSpots = new BoardFreeSpots();
     }
 
-    public void updateBoard(int move, String symbol) {
-        for (String[] row : arr) {
+    public void updateBoard(int move, char symbol) {
+        for (char[] row : arr) {
             for (int colIdx = 0; colIdx < row.length; colIdx++) {
-                if (row[colIdx].equals(String.valueOf(move))) {
+                if (row[colIdx] == Character.forDigit(move, 10)) {
                     row[colIdx] = symbol;
                     remaining--;
                 }
@@ -63,11 +63,11 @@ class Board {
                 for (int j = 0; j < WINNING_COLUMNS; j++) {
                     int elemFromWinningCombo = winningCombination[i][j];
                     elemFromWinningCombo -= 1;
-                    String found = arr[elemFromWinningCombo / 3][elemFromWinningCombo % 3];
-                    if (found.equals("O")) {
+                    char found = arr[elemFromWinningCombo / 3][elemFromWinningCombo % 3];
+                    if (found == 'O') {
                         counterO++;
                     }
-                    if (found.equals("X")) {
+                    if (found == 'X') {
                         counterX++;
                     }
                 }
@@ -79,8 +79,8 @@ class Board {
         return false;
     }
 
-    public String[][] getBoardCopy() {
-        String[][] copy = new String[DIMENSION_OF_ARRAY][DIMENSION_OF_ARRAY];
+    public char[][] getBoardCopy() {
+        char[][] copy = new char[DIMENSION_OF_ARRAY][DIMENSION_OF_ARRAY];
         for (int i = 0; i < DIMENSION_OF_ARRAY; i++) {
             System.arraycopy(arr[i], 0, copy[i], 0, DIMENSION_OF_ARRAY);
         }

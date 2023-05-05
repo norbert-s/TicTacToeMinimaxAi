@@ -52,7 +52,7 @@ public class Game {
         while (!board.checkEndState() && !board.isBoardFull()) {
             if (currentPlayer.equals("player")) {
                 int move = humanPlayer.makeMove();
-                if (boardFreeSpots.isSpotFree(board,move)) {
+                if (boardFreeSpots.isSpotFree(board, move)) {
                     board.updateBoard(move, humanPlayer.getSymbol());
                     BoardDrawer.draw(board.getArr());
                     currentPlayer = "Computer";
@@ -61,7 +61,7 @@ public class Game {
                 }
             } else {
                 int move = computerPlayer.makeMove(board.getBoardCopy());
-                if (boardFreeSpots.isSpotFree(board,move)) {
+                if (boardFreeSpots.isSpotFree(board, move)) {
                     System.out.println("Computer's move is " + move);
                     board.updateBoard(move, computerPlayer.getSymbol());
                     BoardDrawer.draw(board.getArr());

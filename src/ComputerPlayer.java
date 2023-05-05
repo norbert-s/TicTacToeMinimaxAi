@@ -1,17 +1,17 @@
 public class ComputerPlayer {
-    private final String symbol;
+    private final char symbol;
     private final AIBoard ai;
 
-    public ComputerPlayer(String symbol, String opponentSymbol) {
+    public ComputerPlayer(char symbol, char opponentSymbol) {
         this.symbol = symbol;
         this.ai = new AIBoard(symbol, opponentSymbol);
     }
 
-    public int makeMove(String[][] arr) {
+    public int makeMove(char[][] arr) {
         return ai.calculateComputerMove(arr);
     }
 
-    public String getSymbol() {
+    public char getSymbol() {
         return symbol;
     }
 }
