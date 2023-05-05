@@ -1,9 +1,4 @@
 public class BoardFreeSpots {
-
-    public int getNumberOfFreeSpots(Board board) {
-        return createListOfCurrentFreeSpots(board).getFreeSpotsSize();
-    }
-
     private Board createListOfCurrentFreeSpots(Board board) {
         board.clearFreeSpotsList();
         for (char[] row : board.getArr()) {
@@ -23,5 +18,18 @@ public class BoardFreeSpots {
             }
         }
         return false;
+    }
+
+    //ai uses it
+    public int getNumberOfFreeSpots(char[][] board) {
+        int countFreeSpots = 0;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (board[i][j] != 'X' && board[i][j] != 'O') {
+                    countFreeSpots++;
+                }
+            }
+        }
+        return countFreeSpots;
     }
 }

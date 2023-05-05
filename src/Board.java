@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-class Board {
+class Board extends BoardBase{
     private static final int DIMENSION_OF_ARRAY = 3;
     private static final int MAX_NUMBER_OF_SQUARES = 9;
     private static final int WINNING_ROWS = 8;
@@ -24,22 +24,6 @@ class Board {
         freeSpots.clear();
     }
 
-    int getFreeSpotsSize() {
-        return freeSpots.size();
-    }
-
-    private final int[][] winningCombination = {
-            {1, 2, 3},
-            {4, 5, 6},
-            {7, 8, 9},
-            {1, 4, 7},
-            {2, 5, 8},
-            {3, 6, 9},
-            {1, 5, 9},
-            {3, 5, 7}
-    };
-    BoardFreeSpots boardFreeSpots;
-
     public Board() {
         boardFreeSpots = new BoardFreeSpots();
     }
@@ -61,7 +45,7 @@ class Board {
                 int counterO = 0;
                 int counterX = 0;
                 for (int j = 0; j < WINNING_COLUMNS; j++) {
-                    int elemFromWinningCombo = winningCombination[i][j];
+                    int elemFromWinningCombo = winningCombinations[i][j];
                     elemFromWinningCombo -= 1;
                     char found = arr[elemFromWinningCombo / 3][elemFromWinningCombo % 3];
                     if (found == 'O') {
@@ -88,7 +72,7 @@ class Board {
     }
 
     public boolean isBoardFull() {
-        return boardFreeSpots.getNumberOfFreeSpots(this) == 0;
+        return boardFreeSpots.getNumberOfFreeSpots(this.getArr()) == 0;
     }
 }
 
