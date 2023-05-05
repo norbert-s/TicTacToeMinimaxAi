@@ -15,6 +15,7 @@ public class BoardFreeSpots {
         return board;
     }
 
+    //checking if the number provided by user maps to a free spot or not
     public boolean isSpotFree(Board board, int spot) {
         for (int i : createListOfCurrentFreeSpots(board).getFreeSpots()) {
             if (i == spot) {
