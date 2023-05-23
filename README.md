@@ -10,8 +10,6 @@ The computer player uses an advanced version of the minimax algorithm, optimized
 
 This optimization reduces the search space by avoiding unnecessary exploration of branches, and by that improving the efficiency and depth of the search.
 
--------------------------------------------------------------------
 
-Improvements:
 
-Refactored the code to be more in line with SOLID design principles .
+
